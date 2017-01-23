@@ -32,18 +32,18 @@ export function connect (mapStateToProps) {
   }
 
   return function wrapComponent (WrappedComponent) {
-    return class Connect extends Component {
+    class Connect extends Component {
       constructor (props, context) {
         super(props, context)
-        this.state = mapState(props, context)
+        this.state = mapState(props, context)()
         this.handleStoreUpdate = this.handleStoreUpdate.bind(this)
-        this.updateTimeout = null
+        this.updateAnimId = null
 
-        context.store.on('*', this.handleStoreUpdate)
+        this.context.store.on('*', this.handleStoreUpdate)
       }
 
       componentWillUnmount () {
-        window.clearTimeout(this.updateTimeout)
+        window.cancelAnimationFrame(this.updateAnimId)
         this.context.store.off('*', this.handleStoreUpdate)
       }
 
@@ -62,10 +62,17 @@ export function connect (mapStateToProps) {
       handleStoreUpdate () {
         if (typeof mapStateToProps !== 'function') return
 
-        this.updateTimeout = setTimeout(() => { // setState after all events have been handled
+        this.updateAnimId = window.requestAnimationFrame(() => { // setState after all events have been handled
           this.setState(mapState(this.props, this.context))
+          this.updateAnimId = null
         })
       }
     }
+
+    Connect.contextTypes = {
+      store: storeShape
+    }
+
+    return Connect
   }
 }
