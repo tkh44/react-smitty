@@ -1,5 +1,13 @@
 import { Component, createElement, Children, PropTypes } from 'react'
 
+const storeShape = PropTypes.shape({
+  emit: PropTypes.func.isRequired,
+  on: PropTypes.func.isRequired,
+  off: PropTypes.func.isRequired,
+  addReducer: PropTypes.func.isRequired,
+  state: PropTypes.any.isRequired
+})
+
 export class Provider extends Component {
   constructor (props, context) {
     super(props, context)
@@ -14,14 +22,6 @@ export class Provider extends Component {
     return Children.only(props.children)
   }
 }
-
-const storeShape = PropTypes.shape({
-  emit: PropTypes.func.isRequired,
-  on: PropTypes.func.isRequired,
-  off: PropTypes.func.isRequired,
-  addReducer: PropTypes.func.isRequired,
-  state: PropTypes.any.isRequired
-})
 
 Provider.propTypes = { store: storeShape.isRequired, children: PropTypes.element.isRequired }
 Provider.childContextTypes = { store: storeShape.isRequired }
