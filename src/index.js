@@ -18,8 +18,8 @@ export class Provider extends Component {
     return { store: this.store }
   }
 
-  render (props) {
-    return Children.only(props.children)
+  render () {
+    return Children.only(this.props.children)
   }
 }
 
