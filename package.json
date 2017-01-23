@@ -1,7 +1,7 @@
 {
   "name": "react-smitty",
   "amdName": "ReactSmitty",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React bindings for smitty",
   "main": "dist/react-smitty.js",
   "umd:main": "dist/react-smitty.min.js",
