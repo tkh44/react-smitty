@@ -35,7 +35,7 @@ export function connect (mapStateToProps) {
     class Connect extends Component {
       constructor (props, context) {
         super(props, context)
-        this.state = mapState(props, context)()
+        this.state = typeof mapStateToProps === 'function' ? mapState(props, context)() : {}
         this.handleStoreUpdate = this.handleStoreUpdate.bind(this)
         this.updateAnimId = null
 
