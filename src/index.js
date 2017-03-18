@@ -23,7 +23,10 @@ export class Provider extends Component {
   }
 }
 
-Provider.propTypes = { store: storeShape.isRequired, children: PropTypes.element.isRequired }
+Provider.propTypes = {
+  store: storeShape.isRequired,
+  children: PropTypes.element.isRequired
+}
 Provider.childContextTypes = { store: storeShape.isRequired }
 
 export function connect (mapStateToProps) {
@@ -37,35 +40,25 @@ export function connect (mapStateToProps) {
         super(props, context)
         this.state = typeof mapStateToProps === 'function' ? mapState(props, context)() : {}
         this.handleStoreUpdate = this.handleStoreUpdate.bind(this)
-        this.updateAnimId = null
-
         this.context.store.on('*', this.handleStoreUpdate)
       }
 
       componentWillUnmount () {
-        window.cancelAnimationFrame(this.updateAnimId)
         this.context.store.off('*', this.handleStoreUpdate)
       }
 
       render () {
         return createElement(
           WrappedComponent,
-          Object.assign(
-            {},
-            Object.assign({}, this.props),
-            this.state,
-            { emit: this.context.store.emit }
-          )
+          Object.assign({}, Object.assign({}, this.props), this.state, {
+            emit: this.context.store.emit
+          })
         )
       }
 
       handleStoreUpdate () {
         if (typeof mapStateToProps !== 'function') return
-
-        this.updateAnimId = window.requestAnimationFrame(() => { // setState after all events have been handled
-          this.setState(mapState(this.props, this.context))
-          this.updateAnimId = null
-        })
+        this.setState(mapState(this.props, this.context))
       }
     }
 
