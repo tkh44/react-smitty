@@ -10,8 +10,3 @@ React bindings for [smitty](https://github.com/tkh44/smitty)
 
 ### Demo
 [Basic](http://codepen.io/tkh44/pen/qRjjwb)
-
-### *Experimental*
-This is just a naive implementation of react-redux for smitty. It is not optimized at all.
-
-###
