@@ -4,6 +4,7 @@ export default {
   useStrict: false,
   plugins: [buble()],
   globals: {
-    react: 'React'
+    react: 'React',
+    smitty: 'smitty'
   }
 }
