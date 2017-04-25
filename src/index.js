@@ -35,7 +35,7 @@ tree.handleActions({
   [tree.actions.register]: (state, payload) => {
     payload.instance.store = state.userStore
 
-    if (payload.mapStateToProps.length === 2) {
+    if (payload.mapStateToProps && payload.mapStateToProps.length === 2) {
       payload.instance.componentWillReceiveProps = function (nextProps) {
         if (this.props !== nextProps) {
           calculateNextState(state.userStore.state)(payload)
