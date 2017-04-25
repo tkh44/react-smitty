@@ -125,10 +125,10 @@ export function connect (mapStateToProps) {
         tree.actions.unregister(this.id)
       }
 
-      render (props, state) {
+      render () {
         return createElement(
           WrappedComponent,
-          Object.assign({}, props, state, this.store)
+          Object.assign({}, this.props, this.state, this.store)
         )
       }
     }
@@ -154,10 +154,10 @@ export function track (type, statePropertyKey, tracker) {
         tree.actions.releaseAction(this)
       }
 
-      render (props, state) {
+      render () {
         return createElement(
           WrappedComponent,
-          Object.assign({}, props, state, this.store)
+          Object.assign({}, this.props, this.state, this.store)
         )
       }
     }
