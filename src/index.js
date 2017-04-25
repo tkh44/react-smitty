@@ -90,6 +90,12 @@ tree.handleActions({
   }
 })
 
+function childrenToArray (children) {
+  return Array.isArray && Array.isArray(children)
+    ? children
+    : [].concat(children)
+}
+
 export class Provider extends Component {
   constructor (props) {
     super(props)
@@ -97,8 +103,9 @@ export class Provider extends Component {
     this.props.store.on('$$store:state:change', tree.actions.userStoreChange)
   }
 
-  render (props) {
-    return props.children[0]
+  render () {
+    const {children} = this.props
+    return childrenToArray(children)[0]
   }
 }
 
