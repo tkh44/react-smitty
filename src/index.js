@@ -34,6 +34,9 @@ tree.handleActions({
   },
   [tree.actions.register]: (state, payload) => {
     payload.instance.store = state.userStore
+    payload.instance.state = payload.mapStateToProps
+      ? payload.mapStateToProps(state.userStore.state, payload.getProps())
+      : {}
 
     if (payload.mapStateToProps && payload.mapStateToProps.length === 2) {
       payload.instance.componentWillReceiveProps = function (nextProps) {
@@ -44,7 +47,7 @@ tree.handleActions({
     }
 
     state.connections = state.connections.concat(payload)
-    calculateNextState(state.userStore.state)(payload)
+    return state.userStore
   },
   [tree.actions.unregister]: (state, payload) => {
     const index = state.connections.findIndex(inst => inst === payload)
@@ -122,13 +125,13 @@ export function connect (mapStateToProps) {
       }
 
       componentWillUnmount () {
-        tree.actions.unregister(this.id)
+        tree.actions.unregister(this)
       }
 
       render () {
         return createElement(
           WrappedComponent,
-          Object.assign({}, this.props, this.state, this.store)
+          Object.assign({}, this.store, this.props, this.state)
         )
       }
     }
