@@ -47,7 +47,6 @@ tree.handleActions({
     }
 
     state.connections = state.connections.concat(payload)
-    return state.userStore
   },
   [tree.actions.unregister]: (state, payload) => {
     const index = state.connections.findIndex(inst => inst === payload)
