@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "mitt": "^1.1.2",
-    "npm-run-all": "^4.0.2"
   },
   "peerDependencies": {
     "react": "^15.0.0-0"
@@ -39,6 +38,7 @@
     "expect": "^1.20.2",
     "gzip-size-cli": "^2.0.0",
     "jsdom": "^9.12.0",
+    "mkdirp": "^0.5.1",
     "mitt": "^1.1.2",
     "mocha": "^3.2.0",
     "npm-run-all": "^4.0.2",

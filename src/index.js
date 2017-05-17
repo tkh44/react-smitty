@@ -72,14 +72,14 @@ tree.handleActions({
           data
         )
       ) {
-        payload.instance.setState(() => ({
-          [payload.key]: payload.tracker(
-            state.userStore.state,
-            props,
-            payload.type,
-            data
-          )
-        }))
+        const nextState = {}
+        nextState[payload.key] = payload.tracker(
+          state.userStore.state,
+          payload.getProps(),
+          payload.type,
+          data
+        )
+        payload.instance.setState(() => nextState)
       }
     }
 
@@ -104,14 +104,14 @@ tree.handleActions({
         undefined
       )
     ) {
-      payload.instance.state = {
-        [payload.key]: payload.tracker(
-          state.userStore.state,
-          payload.getProps(),
-          payload.type,
-          undefined
-        )
-      }
+      const nextState = {}
+      nextState[payload.key] = payload.tracker(
+        state.userStore.state,
+        payload.getProps(),
+        payload.type,
+        undefined
+      )
+      payload.instance.setState(() => nextState)
     }
   },
   [tree.actions.releaseAction]: (state, payload) => {
